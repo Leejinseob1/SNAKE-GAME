@@ -1,5 +1,3 @@
-// C program to build the complete 
-// snake game 
 #include <conio.h> 
 #include <stdio.h> 
 #include <stdlib.h> 
@@ -9,15 +7,15 @@
 
 int i, j, k = 0, height = 20, width = 20;
 int gameover, score, pause;
+// 아이템 변수, itemx, itemy
 int x, y, fruitx, fruity, flag, itemx, itemy;
 
-// Function to generate the fruit 
-// within the boundary 
+
 void setup()
 {
 	gameover = 0;
 	pause = 0;
-	// Stores height and width 
+
 	x = height / 2;
 	y = width / 2;
 
@@ -34,7 +32,7 @@ void setup()
 		fruity = rand() % 20;
 	}
 
-	// 아이템 
+	// 아이템 위치//
 	itemx = 0;
 	while (itemx == 0)
 	{
@@ -50,7 +48,7 @@ void setup()
 	score = 0;
 }
 
-// Function to draw the boundaries 
+
 void draw()
 {
 	system("cls");
@@ -70,6 +68,7 @@ void draw()
 				{
 					printf("%d", k);
 				}
+				// 아이템 생성. 
 				else if (i == itemx && j == itemy && k >= 3)
 				{
 					printf("+");
@@ -81,14 +80,13 @@ void draw()
 		printf("\n");
 	}
 
-	// Print the score after the 
-	// game ends 
+ 
 	printf("score = %d", score);
 	printf("\n");
 	printf("press X to quit the game");
 }
 
-// Function to take the input 
+
 void input()
 {
 	if (_kbhit())
@@ -111,10 +109,12 @@ void input()
 			flag = 5;
 			gameover = 1;
 			break;
+			// esc로 정지
 		case 27:
 			flag = 6;
 			pause = 1;
 			break;
+			// r로 재시작
 		case 'r':
 			pause = 0;
 			printf("재시작");
@@ -124,8 +124,6 @@ void input()
 }
 
 
-// Function for the logic behind 
-// each movement 
 void logic()
 {
 	Sleep(200);
@@ -156,15 +154,14 @@ void logic()
 			break;
 		}
 	}
-	// If the game is over 
+
 	if (x == 0 || x == height + 1 || x == height - 1 || y == 0 || y == width + 1 || y == width - 1)
 	{
 		gameover = 1;
 		printf("\ngameover!\n");
 	}
 
-	// If snake reaches the fruit 
-	// then update the score 
+
 	if (x == fruitx && y == fruity)
 	{
 
@@ -184,6 +181,7 @@ void logic()
 		k++;
 	}
 
+	// 아아템 점수
 	if (x == itemx && y == itemy)
 	{
 		itemx = 0;
@@ -219,6 +217,7 @@ void main()
 		draw();
 		input();
 		logic();
+		// 일시정지시 출력. 
 		if (pause == 1)
 		{
 			printf("일시정지 중. r키를 눌러 재시작.");
