@@ -6,7 +6,7 @@
 #include <time.h>
 
 int i, j, k = 0, height = 20, width = 20;
-int gameover, score, pause, game;
+int gameover, score, pause, second;		// pause, second
 
 // 아이템 변수, itemx, itemy
 int x, y, fruitx, fruity, flag, itemx, itemy;
@@ -119,7 +119,6 @@ void input()
 				pause = 0;
 			else
 				pause = 1;
-
 			break;
 			// r로 재시작
 		case 'r':
@@ -133,7 +132,7 @@ void input()
 void logic()
 {
 	Sleep(200);
-	if (pause == 0)
+	if (pause == 0)	// pause로 일시정지
 	{
 		switch (flag)
 		{
@@ -152,7 +151,7 @@ void logic()
 		case 5:
 			gameover = 1;
 			break;
-		case 6:
+		case 6:	//pause
 			x = x;
 			y = y;
 			break;
@@ -184,6 +183,7 @@ void logic()
 		}
 
 		score += 10;
+		second = 0;
 		k++;
 	}
 
@@ -210,8 +210,8 @@ void logic()
 
 void main()
 {
-	int r, m, n, second=0;
-
+	int r, m, n;
+	float second = 0;
 
 			setup();
 			while (!gameover)
@@ -225,9 +225,13 @@ void main()
 				{
 					printf("일시정지 중. esc키를 눌러 재시작.");
 				}
-				printf("남은 시간: %d", second);
-				second += 0.2;
-				
+				// 남은 시간
+				printf("남은 시간: %0.f", second);
+				second += 0.2; // sleep 상태에 따라 변경.
+				if (second >= 15)
+				{
+					gameover = 1;
+				}
 			}
 
 }
