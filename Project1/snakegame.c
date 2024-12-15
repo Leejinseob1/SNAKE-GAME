@@ -6,46 +6,50 @@
 #include <time.h>
 
 int i, j, k = 0, height = 20, width = 20;
-int gameover, score, pause;
+int gameover, score, pause, game;
+
 // 아이템 변수, itemx, itemy
 int x, y, fruitx, fruity, flag, itemx, itemy;
 
 
 void setup()
 {
+
 	gameover = 0;
 	pause = 0;
+
+	srand(time(NULL));
 
 	x = height / 2;
 	y = width / 2;
 
 	fruitx = 0;
-	itemx = 0;
 	while (fruitx == 0)
 	{
-		fruitx = rand() % 20;
+		fruitx = rand() % 19;
 	}
 
 	fruity = 0;
 	while (fruity == 0)
 	{
-		fruity = rand() % 20;
+		fruity = rand() % 19;
 	}
 
 	// 아이템 위치//
 	itemx = 0;
 	while (itemx == 0)
 	{
-		itemx = rand() % 20;
+		itemx = rand() % 19;
 	}
 
 	itemy = 0;
 	while (itemy == 0)
 	{
-		itemy = rand() % 20;
+		itemy = rand() % 19;
 	}
 
 	score = 0;
+	k = 0;
 }
 
 
@@ -66,7 +70,7 @@ void draw()
 					printf("0");
 				else if (i == fruitx && j == fruity)
 				{
-					printf("%d", k);
+					printf("*");
 				}
 				// 아이템 생성. 
 				else if (i == itemx && j == itemy && k >= 3)
@@ -106,18 +110,20 @@ void input()
 			flag = 4;
 			break;
 		case 'x':
-			flag = 5;
 			gameover = 1;
 			break;
 			// esc로 정지
 		case 27:
 			flag = 6;
-			pause = 1;
+			if (pause == 1)
+				pause = 0;
+			else
+				pause = 1;
+
 			break;
 			// r로 재시작
 		case 'r':
-			pause = 0;
-			printf("재시작");
+			setup();
 			break;
 		}
 	}
@@ -168,13 +174,13 @@ void logic()
 		fruitx = 0;
 		while (fruitx == 0)
 		{
-			fruitx = rand() % 20;
+			fruitx = rand() % 19;
 		}
 
 		fruity = 0;
 		while (fruity == 0)
 		{
-			fruity = rand() % 20;
+			fruity = rand() % 19;
 		}
 
 		score += 10;
@@ -187,40 +193,41 @@ void logic()
 		itemx = 0;
 		while (itemx == 0)
 		{
-			itemx = rand() % 20;
+			itemx = rand() % 19;
 		}
 
 		itemy = 0;
 		while (itemy == 0)
 		{
-			itemy = rand() % 20;
+			itemy = rand() % 19;
 		}
 
-		score += 20;
-		k = 0;
+		score += 1000;
+		k = 1;
 	}
 }
 
 
-
 void main()
 {
-	int r, m, n;
+	int r, m, n, second=0;
 
-	// Generate boundary 
-	setup();
 
-	// Until the game is over 
-	while (!gameover)
-	{
-		// Function Call 
-		draw();
-		input();
-		logic();
-		// 일시정지시 출력. 
-		if (pause == 1)
-		{
-			printf("일시정지 중. r키를 눌러 재시작.");
-		}
-	}
+			setup();
+			while (!gameover)
+			{
+				// Function Call 
+				draw();
+				input();
+				logic();
+				// 일시정지시 출력. 
+				if (pause == 1)
+				{
+					printf("일시정지 중. esc키를 눌러 재시작.");
+				}
+				printf("남은 시간: %d", second);
+				second += 0.2;
+				
+			}
+
 }
