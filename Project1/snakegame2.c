@@ -13,6 +13,7 @@ int bodyX[100], bodyY[100];
 int length; // 뱀 길이 변수
 int highscore; // 최고 점수를 저장할 변수
 int num = 200;
+int ig=0;
 float second = 0;   // 남은 시간 변수
 // Function to generate the fruit within the boundary
 void setup()
@@ -124,11 +125,7 @@ void draw()
     printf("\n");
     printf("남은시간: %0.f초", 20-second);
     if (pause==0)
-        second += 0.2;
-    if (pause == 1)
-    {
-        printf("\n일시정지 중");   // 일시정지시 출력
-    }
+        second += 0.2;  // 일시정지가 아닐 때 시간 증가. 
     fflush(stdout);  // 출력 버퍼를 즉시 갱신
     if (second >= 20)   // 20초가 넘으면 게임 종료
     {
@@ -142,15 +139,19 @@ void input()
         switch (getch()) {
         case 'a':
             flag = 1;
+            ig = 0;
             break;
         case 's':
             flag = 2;
+            ig = 0;
             break;
         case 'd':
             flag = 3;
+            ig = 0;
             break;
         case 'w':
             flag = 4;
+            ig = 0;
             break;
         case 'x':
             gameover = 1;
@@ -162,6 +163,7 @@ void input()
                 pause = 0;
             else
                 pause = 1;
+            ig = 1;
             break;
             // r로 재시작
         case 'r':
@@ -174,7 +176,6 @@ void input()
 // Function for the logic behind each movement
 void logic()
 {
-    if (pause == 0)
     {
         // 뱀의 위치 저장
         int prevX = bodyX[0];
@@ -221,7 +222,7 @@ void logic()
 
     // 자기 몸에 충돌했는지 체크
     for (int i = 0; i < length; i++) {
-        if (bodyX[i] == x && bodyY[i] == y) {
+        if (bodyX[i] == x && bodyY[i] == y && ig == 0) {
             gameover = 1;
         }
     }
@@ -229,8 +230,8 @@ void logic()
     if (x == fruitx && y == fruity) {
         score += 10;
         length++; // 뱀의 길이 증가
-        k++;
-        second = 0;
+        k++; // k증가로 아이템 생성
+        second = 0; // 남은 시간 초기화
 
         fruitx = 0;
         while (fruitx == 0) {
@@ -248,6 +249,7 @@ void logic()
         gameover = 1;
     }
 
+    // 아이템 점수
     if (x == itemx && y == itemy)
     {
         itemx = 0;
@@ -262,8 +264,8 @@ void logic()
             itemy = rand() % 20;
         }
 
-        score += 20;
-        k = 0;
+        score += 20; // 추가점수
+        k = 0; //k 초기화
     }
 }
 

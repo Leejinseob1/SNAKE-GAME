@@ -115,10 +115,12 @@ void input()
 			// esc로 정지
 		case 27:
 			flag = 6;
-			if (pause == 1)
-				pause = 0;
-			else
-				pause = 1;
+			if (gameover == 0) {
+				if (pause == 1)
+					pause = 0;
+				else
+					pause = 1;
+			}
 			break;
 			// r로 재시작
 		case 'r':
