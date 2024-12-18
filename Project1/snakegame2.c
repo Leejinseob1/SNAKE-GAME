@@ -35,6 +35,7 @@ void setup()
         fruity = rand() % 20;
     }
 
+    // 장애물 랜덤 생성
     obstaclex = 0;
     while (obstaclex == 0) {
         obstaclex = rand() % 20;
