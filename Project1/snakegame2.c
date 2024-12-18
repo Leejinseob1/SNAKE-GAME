@@ -163,9 +163,6 @@ void logic()
 {
     if (pause == 0)
     {
-
-        //Sleep(num);
-
         int prevX = bodyX[0];
         int prevY = bodyY[0];
         int prev2X, prev2Y;
