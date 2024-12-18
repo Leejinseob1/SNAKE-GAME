@@ -120,7 +120,8 @@ void draw()
     printf("high score = %d", highscore);  // 최고 점수 표시
     printf("\n");
     printf("press X to quit the game");
-    printf("남은시간: 0.%f", 20-second);
+    printf("\n");
+    printf("남은시간: 0.%f", 20 - second);
     fflush(stdout);  // 출력 버퍼를 즉시 갱신
 }
 
