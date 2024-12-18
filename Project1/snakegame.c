@@ -148,9 +148,6 @@ void logic()
 		case 4:
 			x--;
 			break;
-		case 5:
-			gameover = 1;
-			break;
 		case 6:	//pause
 			x = x;
 			y = y;
