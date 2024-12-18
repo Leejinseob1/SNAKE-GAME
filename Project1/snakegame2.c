@@ -145,11 +145,11 @@ void input()
         case 'x':
             gameover = 1;
             break;
+        // esc로 일시정지와 해제
         case 27:
             flag = 5;
             pause != pause;
             break;
-
             // r로 재시작
         case 'r':
             setup();
