@@ -6,22 +6,23 @@
 #include <time.h>
 
 int i, j, k = 0, height = 20, width = 20;
-int gameover;
+int gameover, gameout;
 int score, pause;
 int x, y, fruitx, fruity, flag, obstaclex, obstacley, itemx, itemy;
 int bodyX[100], bodyY[100];
 int length; // 뱀 길이 변수
 int highscore; // 최고 점수를 저장할 변수
-int num = 200;
+int num;
 int ig=0;
 float second = 0;   // 남은 시간 변수
 // Function to generate the fruit within the boundary
 void setup()
 {
     srand(time(NULL));
-    
+    num = 200; // 속도 초기화
     score = 0; // 점수 초기화
     gameover = 0;
+    gameout = 0;
     pause = 0; // 일시정지 해제
     x = height / 2;
     y = width / 2;
@@ -63,7 +64,6 @@ void setup()
         itemy = rand() % 18;
     }
 
-    score = 0;
 
     // 최고 점수를 파일에서 읽어오기
     FILE* file;
@@ -157,6 +157,7 @@ void input()
             break;
         case 'x':
             gameover = 1;
+            gameout = 1;
             break;
         // esc로 일시정지와 해제
         case 27:
@@ -301,15 +302,15 @@ int main()
 {
     setup();
 
-    while (1) { // gameover 상태와 관계없이 계속 반복
-        if (gameover) { // 게임 오버 상태일 때
+    while (!gameout) { // gameover 상태와 관계없이 계속 반복
+        if (gameover==1) { // 게임 오버 상태일 때
             printf("\nr키를 눌러서 재시작\n");
             while (gameover) { // 게임 오버 상태에서 멈추고, 사용자가 'r'을 누를 때까지 기다림
                 input(); // 'r' 입력을 처리하여 게임을 재시작
             }
         }
         else {
-            if (!pause) { // pause 상태가 아니면
+            if (pause==0) { // pause 상태가 아니면
                 draw();         // 화면 그리기
                 input();        // 입력 처리
                 logic();        // 게임 로직
