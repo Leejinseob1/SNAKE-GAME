@@ -10,8 +10,8 @@ int gameover;
 int score, pause;
 int x, y, fruitx, fruity, flag, obstaclex, obstacley, itemx, itemy;
 int bodyX[100], bodyY[100];
-int length;
-int highscore; // ÃÖ°í Á¡¼ö¸¦ ÀúÀåÇÒ º¯¼ö
+int length; // ë±€ ê¸¸ì´ ë³€ìˆ˜
+int highscore; // ìµœê³  ì ìˆ˜ë¥¼ ì €ì¥í•  ë³€ìˆ˜
 int num = 200;
 
 // Function to generate the fruit within the boundary
@@ -23,7 +23,7 @@ void setup()
     x = height / 2;
     y = width / 2;
 
-    length = 0; // ÃÊ±â ±æÀÌ 0 ¼³Á¤
+    length = 0; // ì´ˆê¸° ê¸¸ì´ 0 ì„¤ì •
 
     fruitx = 0;
     while (fruitx == 0) {
@@ -45,7 +45,7 @@ void setup()
         obstacley = rand() % 20;
     }
 
-    // ¾ÆÀÌÅÛ 
+    // ì•„ì´í…œ 
     itemx = 0;
     while (itemx == 0)
     {
@@ -60,37 +60,37 @@ void setup()
 
     score = 0;
 
-    // ÃÖ°í Á¡¼ö¸¦ ÆÄÀÏ¿¡¼­ ÀĞ¾î¿À±â
+    // ìµœê³  ì ìˆ˜ë¥¼ íŒŒì¼ì—ì„œ ì½ì–´ì˜¤ê¸°
     FILE* file;
     if (fopen_s(&file, "highscore.txt", "r") == 0) {
-        fscanf_s(file, "%d", &highscore);  // ÆÄÀÏ¿¡¼­ ÃÖ°í Á¡¼ö ÀĞ±â
+        fscanf_s(file, "%d", &highscore);  // íŒŒì¼ì—ì„œ ìµœê³  ì ìˆ˜ ì½ê¸°
         fclose(file);
     }
     else {
-        highscore = 0;  // ÆÄÀÏÀÌ ¾øÀ¸¸é ÃÖ°í Á¡¼ö¸¦ 0À¸·Î ¼³Á¤
+        highscore = 0;  // íŒŒì¼ì´ ì—†ìœ¼ë©´ ìµœê³  ì ìˆ˜ë¥¼ 0ìœ¼ë¡œ ì„¤ì •
     }
 }
 
 // Function to draw the boundaries
 void draw()
 {
-    // ÄÜ¼Ö Ä¿¼­¸¦ È­¸éÀÇ Ã³À½À¸·Î ÀÌµ¿
+    // ì½˜ì†” ì»¤ì„œë¥¼ í™”ë©´ì˜ ì²˜ìŒìœ¼ë¡œ ì´ë™
     COORD coord;
     coord.X = 0;
     coord.Y = 0;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 
-    // È­¸é ±×¸®±â
+    // í™”ë©´ ê·¸ë¦¬ê¸°
     for (i = 0; i < height; i++) {
         for (j = 0; j < width; j++) {
             if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
-                printf("#");  // º® ±×¸®±â
+                printf("#");  // ë²½ ê·¸ë¦¬ê¸°
             }
             else {
                 int isSnakePart = 0;
                 for (int k = 0; k < length; k++) {
                     if (bodyX[k] == i && bodyY[k] == j) {
-                        printf("o");  // ¹ì ¸öÅë ±×¸®±â
+                        printf("o");  // ë±€ ëª¸í†µ ê·¸ë¦¬ê¸°
                         isSnakePart = 1;
                         break;
                     }
@@ -98,29 +98,29 @@ void draw()
 
                 if (!isSnakePart) {
                     if (i == x && j == y)
-                        printf("0");  // ¹ì ¸Ó¸® ±×¸®±â
+                        printf("0");  // ë±€ ë¨¸ë¦¬ ê·¸ë¦¬ê¸°
                     else if (i == fruitx && j == fruity)
-                        printf("*");  // °úÀÏ ±×¸®±â
+                        printf("*");  // ê³¼ì¼ ê·¸ë¦¬ê¸°
                     else if (i == obstaclex && j == obstacley)
-                        printf("X");  // Àå¾Ö¹° ±×¸®±â
+                        printf("X");  // ì¥ì• ë¬¼ ê·¸ë¦¬ê¸°
                     else if (i == itemx && j == itemy && k >= 3)
                         printf("+");
                     else
-                        printf(" ");  // ºó °ø°£
+                        printf(" ");  // ë¹ˆ ê³µê°„
                 }
             }
         }
         printf("\n");
     }
 
-    // Á¡¼ö Ç¥½Ã
+    // ì ìˆ˜ í‘œì‹œ
     printf("score = %d", score);
     printf("\n");
-    printf("high score = %d", highscore);  // ÃÖ°í Á¡¼ö Ç¥½Ã
+    printf("high score = %d", highscore);  // ìµœê³  ì ìˆ˜ í‘œì‹œ
     printf("\n");
     printf("press X to quit the game");
 
-    fflush(stdout);  // Ãâ·Â ¹öÆÛ¸¦ Áï½Ã °»½Å
+    fflush(stdout);  // ì¶œë ¥ ë²„í¼ë¥¼ ì¦‰ì‹œ ê°±ì‹ 
 }
 
 void input()
@@ -150,7 +150,7 @@ void input()
                 pause = 1;
             break;
 
-            // r·Î Àç½ÃÀÛ
+            // rë¡œ ì¬ì‹œì‘
         case 'r':
             setup();
             break;
@@ -254,11 +254,11 @@ void logic()
 void saveHighscore()
 {
     if (score > highscore) {
-        highscore = score;  // ÃÖ°í Á¡¼ö °»½Å
+        highscore = score;  // ìµœê³  ì ìˆ˜ ê°±ì‹ 
 
         FILE* file;
         if (fopen_s(&file, "highscore.txt", "w") == 0) {
-            fprintf(file, "%d", highscore); // ÃÖ°í Á¡¼ö ÀúÀå
+            fprintf(file, "%d", highscore); // ìµœê³  ì ìˆ˜ ì €ì¥
             fclose(file);
         }
     }
@@ -268,10 +268,10 @@ void speedControl()
 {
     Sleep(num);
 
-    static int lastScore = 0; // ¼Óµµ°¡ Á¶Á¤µÈ ¸¶Áö¸· Á¡¼ö ÃßÀû
+    static int lastScore = 0; // ì†ë„ê°€ ì¡°ì •ëœ ë§ˆì§€ë§‰ ì ìˆ˜ ì¶”ì 
 
-    if (score != 0 && score / 50 > lastScore / 50) {  // Á¡¼ö°¡ 50ÀÇ ¹è¼ö¿¡ µµ´ŞÇÑ °æ¿ì¿¡¸¸
-        num -= 10; // ¼Óµµ °¨¼Ò
+    if (score != 0 && score / 50 > lastScore / 50) {  // ì ìˆ˜ê°€ 50ì˜ ë°°ìˆ˜ì— ë„ë‹¬í•œ ê²½ìš°ì—ë§Œ
+        num -= 10; // ì†ë„ ê°ì†Œ
         lastScore = score;
     }
 }
@@ -282,15 +282,15 @@ int main()
     setup();
 
     while (!gameover) {
-        draw();  // È­¸é ±×¸®±â
-        input(); // ÀÔ·Â Ã³¸®
-        logic(); // °ÔÀÓ ·ÎÁ÷ Ã³¸®
-        speedControl(); //¼Óµµ Á¶Àı
+        draw();  // í™”ë©´ ê·¸ë¦¬ê¸°
+        input(); // ì…ë ¥ ì²˜ë¦¬
+        logic(); // ê²Œì„ ë¡œì§ ì²˜ë¦¬
+        speedControl(); //ì†ë„ ì¡°ì ˆ
     }
     if (pause == 1)
     {
-        printf("ÀÏ½ÃÁ¤Áö Áß");
+        printf("ì¼ì‹œì •ì§€ ì¤‘");
     }
-    saveHighscore(); // °ÔÀÓ Á¾·á ½Ã ÃÖ°í Á¡¼ö ÀúÀå
+    saveHighscore(); // ê²Œì„ ì¢…ë£Œ ì‹œ ìµœê³  ì ìˆ˜ ì €ì¥
 }
 
