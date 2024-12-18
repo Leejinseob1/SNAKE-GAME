@@ -87,16 +87,16 @@ void draw()
                 printf("#");  // 벽 그리기
             }
             else {
-                int isSnakePart = 0;
+                int SnakeBody = 0;
                 for (int k = 0; k < length; k++) {
                     if (bodyX[k] == i && bodyY[k] == j) {
                         printf("o");  // 뱀 몸통 그리기
-                        isSnakePart = 1;
+                        SnkeBody = 1;
                         break;
                     }
                 }
 
-                if (!isSnakePart) {
+                if (!SnakeBody) {
                     if (i == x && j == y)
                         printf("0");  // 뱀 머리 그리기
                     else if (i == fruitx && j == fruity)
