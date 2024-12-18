@@ -273,7 +273,7 @@ void speedControl()
     static int lastScore = 0; // 속도가 조정된 마지막 점수 추적
 
     if (score != 0 && score / 50 > lastScore / 50) {  // 점수가 50의 배수에 도달한 경우에만
-        num -= 10; // 속도 감소
+        num -= 10; // 속도 증가
         lastScore = score;
     }
 }
