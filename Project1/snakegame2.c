@@ -163,12 +163,14 @@ void logic()
 {
     if (pause == 0)
     {
+        // 뱀의 위치 저장
         int prevX = bodyX[0];
         int prevY = bodyY[0];
         int prev2X, prev2Y;
         bodyX[0] = x;
         bodyY[0] = y;
-
+        
+        // 뱀의 몸통 위치 조정
         for (int i = 1; i < length; i++) {
             prev2X = bodyX[i];
             prev2Y = bodyY[i];
@@ -203,6 +205,7 @@ void logic()
     if (x == 0 || x == height + 1 || x == height - 1 || y == 0 || y == width + 1 || y == width - 1)
         gameover = 1;
 
+    // 자기 몸에 충돌했는지 체크
     for (int i = 0; i < length; i++) {
         if (bodyX[i] == x && bodyY[i] == y) {
             gameover = 1;
@@ -211,7 +214,7 @@ void logic()
 
     if (x == fruitx && y == fruity) {
         score += 10;
-        length++;
+        length++; // 뱀의 길이 증가
         k++;
 
         fruitx = 0;
@@ -225,6 +228,7 @@ void logic()
         }
     }
 
+    // 장애물에 충돌했는지 체크
     if (x == obstaclex && y == obstacley) {
         gameover = 1;
     }
