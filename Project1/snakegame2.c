@@ -13,7 +13,7 @@ int bodyX[100], bodyY[100];
 int length; // 뱀 길이 변수
 int highscore; // 최고 점수를 저장할 변수
 int num = 200;
-
+float second = 0;
 // Function to generate the fruit within the boundary
 void setup()
 {
@@ -119,7 +119,7 @@ void draw()
     printf("high score = %d", highscore);  // 최고 점수 표시
     printf("\n");
     printf("press X to quit the game");
-
+    printf("남은시간: 0.%f", 20-second);
     fflush(stdout);  // 출력 버퍼를 즉시 갱신
 }
 
@@ -294,7 +294,6 @@ int main()
         printf("일시정지 중");
     }
     // 남은 시간
-    printf("남은 시간: %0.f", second);
     second += 0.2; // sleep 상태에 따라 변경.
     if (second >= 20)
     {
