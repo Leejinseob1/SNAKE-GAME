@@ -20,45 +20,47 @@ void setup()
 {
     srand(time(NULL));
     
+    score = 0; // 점수 초기화
     gameover = 0;
-    pause = 0;
+    pause = 0; // 일시정지 해제
     x = height / 2;
     y = width / 2;
     second = 0; // 남은 시간 0 설정
     length = 0; // 초기 길이 0 설정
+    k = 0; // 아이템 변수 초기화
 
     fruitx = 0;
     while (fruitx == 0) {
-        fruitx = rand() % 20;
+        fruitx = rand() % 18;
     }
 
     fruity = 0;
     while (fruity == 0) {
-        fruity = rand() % 20;
+        fruity = rand() % 18;
     }
 
     // 장애물 랜덤 생성
     obstaclex = 0;
     while (obstaclex == 0) {
-        obstaclex = rand() % 20;
+        obstaclex = rand() % 18;
     }
 
     obstacley = 0;
     while (obstacley == 0) {
-        obstacley = rand() % 20;
+        obstacley = rand() % 18;
     }
 
     // 아이템 랜덤 생성
     itemx = 0;
     while (itemx == 0)
     {
-        itemx = rand() % 20;
+        itemx = rand() % 18;
     }
 
     itemy = 0;
     while (itemy == 0)
     {
-        itemy = rand() % 20;
+        itemy = rand() % 18;
     }
 
     score = 0;
@@ -235,12 +237,12 @@ void logic()
 
         fruitx = 0;
         while (fruitx == 0) {
-            fruitx = rand() % 20;
+            fruitx = rand() % 18;
         }
 
         fruity = 0;
         while (fruity == 0) {
-            fruity = rand() % 20;
+            fruity = rand() % 18;
         }
     }
 
@@ -255,13 +257,13 @@ void logic()
         itemx = 0;
         while (itemx == 0)
         {
-            itemx = rand() % 20;
+            itemx = rand() % 18;
         }
 
         itemy = 0;
         while (itemy == 0)
         {
-            itemy = rand() % 20;
+            itemy = rand() % 18;
         }
 
         score += 20; // 추가점수
@@ -299,12 +301,26 @@ int main()
 {
     setup();
 
-    while (!gameover) {
-        draw();  // 화면 그리기
-        input(); // 입력 처리
-        logic(); // 게임 로직 처리
-        speedControl(); //속도 조절
+    while (1) { // gameover 상태와 관계없이 계속 반복
+        if (gameover) { // 게임 오버 상태일 때
+            printf("\nr키를 눌러서 재시작\n");
+            while (gameover) { // 게임 오버 상태에서 멈추고, 사용자가 'r'을 누를 때까지 기다림
+                input(); // 'r' 입력을 처리하여 게임을 재시작
+            }
+        }
+        else {
+            if (!pause) { // pause 상태가 아니면
+                draw();         // 화면 그리기
+                input();        // 입력 처리
+                logic();        // 게임 로직
+                speedControl(); // 속도 조절
+            }
+            else { // pause 상태일 때
+                input(); // 입력만 처리
+                printf("\r게임이 일시정지되었습니다. ESC를 눌러 재개하세요.");
+                fflush(stdout); // 출력 버퍼를 즉시 갱신
+            }
+        }
     }
-
     saveHighscore(); // 게임 종료 시 최고 점수 저장
 }
