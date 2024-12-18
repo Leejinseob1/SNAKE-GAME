@@ -222,7 +222,7 @@ void logic()
 
     // 자기 몸에 충돌했는지 체크
     for (int i = 0; i < length; i++) {
-        if (bodyX[i] == x && bodyY[i] == y && ig == 0) {
+        if (bodyX[i] == x && bodyY[i] == y && ig == 0) {    // 일시정지 직후엔 무효
             gameover = 1;
         }
     }
