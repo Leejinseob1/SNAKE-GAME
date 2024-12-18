@@ -147,10 +147,7 @@ void input()
             break;
         case 27:
             flag = 5;
-            if (pause == 1)
-                pause = 0;
-            else
-                pause = 1;
+            pause != pause;
             break;
 
             // r로 재시작
