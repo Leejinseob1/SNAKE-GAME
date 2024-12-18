@@ -119,8 +119,10 @@ void draw()
     printf("\n");
     printf("high score = %d", highscore);  // 최고 점수 표시
     printf("\n");
+    printf("press X to quit the game");
     printf("\n");
-    printf("남은시간: 0.%f초", second);
+    printf("남은시간: %0.f초", 20-second);
+    second += 0.2; // sleep 상태에 따라 변경.
     fflush(stdout);  // 출력 버퍼를 즉시 갱신
 }
 
@@ -217,6 +219,7 @@ void logic()
         score += 10;
         length++; // 뱀의 길이 증가
         k++;
+        second = 0;
 
         fruitx = 0;
         while (fruitx == 0) {
@@ -281,7 +284,6 @@ void speedControl()
 
 int main()
 {
-    float second = 0;
     setup();
 
     while (!gameover) {
@@ -295,7 +297,7 @@ int main()
         printf("일시정지 중");
     }
     // 남은 시간
-    second += 0.2; // sleep 상태에 따라 변경.
+ 
     if (second >= 20)
     {
         gameover = 1;
