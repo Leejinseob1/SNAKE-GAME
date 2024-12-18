@@ -17,7 +17,7 @@ int num = 200;
 // Function to generate the fruit within the boundary
 void setup()
 {
-    //srand(time(NULL));
+    srand(time(NULL));
 
     gameover = 0;
     x = height / 2;
@@ -91,7 +91,7 @@ void draw()
                 for (int k = 0; k < length; k++) {
                     if (bodyX[k] == i && bodyY[k] == j) {
                         printf("o");  // 뱀 몸통 그리기
-                        SnkeBody = 1;
+                        SnakeBody = 1;
                         break;
                     }
                 }
@@ -276,6 +276,7 @@ void speedControl()
 
 int main()
 {
+    float second = 0;
     setup();
 
     while (!gameover) {
@@ -287,6 +288,13 @@ int main()
     if (pause == 1)
     {
         printf("일시정지 중");
+    }
+    // 남은 시간
+    printf("남은 시간: %0.f", second);
+    second += 0.2; // sleep 상태에 따라 변경.
+    if (second >= 15)
+    {
+        gameover = 1;
     }
     saveHighscore(); // 게임 종료 시 최고 점수 저장
 }
