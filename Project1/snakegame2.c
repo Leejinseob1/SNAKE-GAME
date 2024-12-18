@@ -13,16 +13,17 @@ int bodyX[100], bodyY[100];
 int length; // 뱀 길이 변수
 int highscore; // 최고 점수를 저장할 변수
 int num = 200;
-float second = 0;
+float second = 0;   // 남은 시간 변수
 // Function to generate the fruit within the boundary
 void setup()
 {
     srand(time(NULL));
-
+    
     gameover = 0;
+    pause = 0;
     x = height / 2;
     y = width / 2;
-
+    second = 0; // 남은 시간 0 설정
     length = 0; // 초기 길이 0 설정
 
     fruitx = 0;
@@ -46,7 +47,7 @@ void setup()
         obstacley = rand() % 20;
     }
 
-    // 아이템 
+    // 아이템 랜덤 생성
     itemx = 0;
     while (itemx == 0)
     {
@@ -122,8 +123,17 @@ void draw()
     printf("press X to quit the game");
     printf("\n");
     printf("남은시간: %0.f초", 20-second);
-    second += 0.2; // sleep 상태에 따라 변경.
+    if (pause==0)
+        second += 0.2;
+    if (pause == 1)
+    {
+        printf("\n일시정지 중");   // 일시정지시 출력
+    }
     fflush(stdout);  // 출력 버퍼를 즉시 갱신
+    if (second >= 20)   // 20초가 넘으면 게임 종료
+    {
+        gameover = 1;
+    }
 }
 
 void input()
@@ -148,7 +158,10 @@ void input()
         // esc로 일시정지와 해제
         case 27:
             flag = 5;
-            pause != pause;
+            if (pause == 1)
+                pause = 0;
+            else
+                pause = 1;
             break;
             // r로 재시작
         case 'r':
@@ -193,6 +206,7 @@ void logic()
         case 4:
             x--;
             break;
+        // 캐릭터의 위치 고정
         case 5:
             x = x;
             y = y;
@@ -289,15 +303,6 @@ int main()
         logic(); // 게임 로직 처리
         speedControl(); //속도 조절
     }
-    if (pause == 1)
-    {
-        printf("일시정지 중");
-    }
-    // 남은 시간
- 
-    if (second >= 20)
-    {
-        gameover = 1;
-    }
+
     saveHighscore(); // 게임 종료 시 최고 점수 저장
 }
