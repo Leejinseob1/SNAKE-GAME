@@ -292,7 +292,7 @@ int main()
     // 남은 시간
     printf("남은 시간: %0.f", second);
     second += 0.2; // sleep 상태에 따라 변경.
-    if (second >= 15)
+    if (second >= 20)
     {
         gameover = 1;
     }
