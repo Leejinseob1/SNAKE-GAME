@@ -5,7 +5,7 @@
 #include <Windows.h>
 #include <time.h>
 
-int i, j, k = 0, height = 20, width = 20;
+int i, j, item = 0, height = 20, width = 20;
 int gameover, gameout;
 int score, pause;
 int x, y, fruitx, fruity, flag, obstaclex, obstacley, itemx, itemy;
@@ -28,7 +28,7 @@ void setup()
     y = width / 2;
     second = 0; // 남은 시간 0 설정
     length = 0; // 초기 길이 0 설정
-    k = 0; // 아이템 변수 초기화
+    item = 0; // 아이템 변수 초기화
 
     fruitx = 0;
     while (fruitx == 0) {
@@ -108,7 +108,7 @@ void draw()
                         printf("*");  // 과일 그리기
                     else if (i == obstaclex && j == obstacley)
                         printf("X");  // 장애물 그리기
-                    else if (i == itemx && j == itemy && k >= 3)
+                    else if (i == itemx && j == itemy && item >= 3)
                         printf("+");
                     else
                         printf(" ");  // 빈 공간
@@ -233,7 +233,7 @@ void logic()
     if (x == fruitx && y == fruity) {
         score += 10;
         length++; // 뱀의 길이 증가
-        k++; // k증가로 아이템 생성
+        item++; // item 증가로 아이템 생성
         second = 0; // 남은 시간 초기화
 
         fruitx = 0;
@@ -318,7 +318,6 @@ int main()
             }
             else { // pause 상태일 때
                 input(); // 입력만 처리
-                printf("\r게임이 일시정지되었습니다. ESC를 눌러 재개하세요.");
                 fflush(stdout); // 출력 버퍼를 즉시 갱신
             }
         }
