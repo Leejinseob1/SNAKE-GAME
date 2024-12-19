@@ -162,10 +162,7 @@ void input()
         // esc로 일시정지와 해제
         case 27:
             flag = 5;
-            if (pause == 1)
-                pause = 0;
-            else
-                pause = 1;
+            pause != pause;
             ig = 1;
             break;
             // r로 재시작
