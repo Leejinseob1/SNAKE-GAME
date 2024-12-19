@@ -162,7 +162,7 @@ void input()
         // esc로 일시정지와 해제
         case 27:
             flag = 5;
-            pause != pause;
+            pause = !pause;
             ig = 1;
             break;
             // r로 재시작
@@ -265,7 +265,7 @@ void logic()
         }
 
         score += 20; // 추가점수
-        k = 0; //k 초기화
+        item = 0; //k 초기화
     }
 }
 
@@ -299,7 +299,7 @@ int main()
 {
     setup();
 
-    while (!gameout) { // gameover 상태와 관계없이 계속 반복
+    while (!gameout) {
         if (gameover==1) { // 게임 오버 상태일 때
             printf("\nr키를 눌러서 재시작\n");
             while (gameover) { // 게임 오버 상태에서 멈추고, 사용자가 'r'을 누를 때까지 기다림
@@ -307,14 +307,14 @@ int main()
             }
         }
         else {
-            if (pause==0) { // pause 상태가 아니면
-                draw();         // 화면 그리기
-                input();        // 입력 처리
-                logic();        // 게임 로직
+            if (pause==0) { // pause 상태가 아닐 때
+                draw();
+                input();
+                logic();        
                 speedControl(); // 속도 조절
             }
             else { // pause 상태일 때
-                input(); // 입력만 처리
+                input();
                 fflush(stdout); // 출력 버퍼를 즉시 갱신
             }
         }
