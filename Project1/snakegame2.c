@@ -6,7 +6,7 @@
 #include <time.h>
 
 int i, j, item = 0, height = 20, width = 20;
-int gameover, gameout;
+int gameover, gameout=0;
 int score, pause;
 int x, y, fruitx, fruity, flag, obstaclex, obstacley, itemx, itemy;
 int bodyX[100], bodyY[100];
@@ -22,7 +22,7 @@ void setup()
     num = 200; // 속도 초기화
     score = 0; // 점수 초기화
     gameover = 0;
-    gameout = 0;
+    gameout = 0; // gameout 초기화
     pause = 0; // 일시정지 해제
     x = height / 2;
     y = width / 2;
@@ -315,7 +315,6 @@ int main()
             }
             else { // pause 상태일 때
                 input();
-                fflush(stdout); // 출력 버퍼를 즉시 갱신
             }
         }
     }
